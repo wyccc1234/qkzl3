@@ -1,7 +1,1500 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>青空之恋 - 管理系统</title>
-<style>*{margin:0;padding:0;box-sizing:bor... (还有32002个字符，已生成，只是没存到 message 里)
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>青空之恋 - 管理系统</title>
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        ul, li {
+            list-style: none;
+        }
+        
+        /* 变量 */
+        :root {
+            --primary: #FF9EB5;
+            --primary-light: #FFD6E0;
+            --secondary: #6ECEF5;
+            --secondary-light: #B3E5FC;
+            --dark: #333333;
+            --light: #FFFFFF;
+            --gray: #EEEEEE;
+        }
+        
+        /* 登录页面样式 */
+        .login-container {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #B3E5FC 0%, #FFD6E0 100%);
+        }
+        
+        .login-box {
+            width: 400px;
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .login-logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .login-logo h1 {
+            color: var(--primary);
+            font-size: 2rem;
+        }
+        
+        .login-form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .login-btn:hover {
+            background-color: #ff8ca8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 158, 181, 0.3);
+        }
+        
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            transition: color 0.3s;
+        }
+        
+        .back-link:hover {
+            color: var(--primary);
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            text-align: center;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        /* 管理系统样式 */
+        .admin-container {
+            display: none;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .admin-header {
+            background-color: white;
+            padding: 15px 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .admin-logo h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
+        }
+        
+        .admin-header-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        .admin-header-btn {
+            padding: 8px 15px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 6px;
+            margin-left: 10px;
+            transition: all 0.3s;
+        }
+        
+        .admin-header-btn:hover {
+            background-color: #ff8ca8;
+        }
+        
+        .admin-main {
+            display: flex;
+            height: calc(100vh - 60px);
+        }
+        
+        .admin-sidebar {
+            width: 220px;
+            background-color: #2d3436;
+            color: white;
+            overflow-y: auto;
+        }
+        
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+        
+        .menu-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .menu-item:hover {
+            background-color: #3d4548;
+        }
+        
+        .menu-item.active {
+            background-color: var(--primary);
+        }
+        
+        .menu-item i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .admin-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        
+        .content-panel {
+            display: none;
+        }
+        
+        .content-panel.active {
+            display: block;
+        }
+        
+        .panel-header {
+            margin-bottom: 20px;
+        }
+        
+        .panel-header h2 {
+            font-size: 1.8rem;
+            color: #2d3436;
+            margin-bottom: 10px;
+        }
+        
+        .panel-header p {
+            color: #7f8c8d;
+        }
+        
+        .btn-add {
+            background-color: var(--secondary);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 6px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        
+        .btn-add:hover {
+            background-color: #5dbfe9;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(110, 206, 245, 0.3);
+        }
+        
+        .admin-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .card-header {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .card-header h3 {
+            font-size: 1.4rem;
+            color: #2d3436;
+        }
+        
+        .form-row {
+            margin-bottom: 15px;
+        }
+        
+        .form-row label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-row input, .form-row textarea {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        .form-row textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .btn-save {
+            background-color: var(--secondary);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-save:hover {
+            background-color: #5dbfe9;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .data-table th, .data-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+        
+        .data-table th {
+            background-color: #f9f9f9;
+            font-weight: 500;
+        }
+        
+        .table-image {
+            width: 80px;
+            height: 45px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn-edit, .btn-delete {
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-edit {
+            background-color: #f5f6fa;
+            color: #333;
+        }
+        
+        .btn-edit:hover {
+            background-color: #e9ebf4;
+        }
+        
+        .btn-delete {
+            background-color: #ffefef;
+            color: #e74c3c;
+        }
+        
+        .btn-delete:hover {
+            background-color: #ffd8d8;
+        }
+        
+        /* 添加表单弹窗 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background-color: white;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            color: #2d3436;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #7f8c8d;
+        }
+        
+        /* 轮播图管理样式 */
+        .carousel-preview {
+            width: 100%;
+            height: 200px;
+            background-color: #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .carousel-preview-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            color: white;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+        }
+        
+        /* 游戏截图管理样式 */
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .screenshot-item {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .screenshot-img {
+            width: 100%;
+            height: 120px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .screenshot-info {
+            padding: 10px;
+        }
+        
+        .screenshot-info p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        /* 媒体查询，响应式设计 */
+        @media (max-width: 768px) {
+            .admin-main {
+                flex-direction: column;
+            }
+            
+            .admin-sidebar {
+                width: 100%;
+                height: auto;
+            }
+            
+            .sidebar-menu {
+                display: flex;
+                overflow-x: auto;
+                padding: 10px;
+            }
+            
+            .menu-item {
+                padding: 8px 15px;
+                white-space: nowrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 登录页面 -->
+    <div class="login-container" id="loginPage">
+        <div class="login-box">
+            <div class="login-logo">
+                <h1>青空之恋</h1>
+            </div>
+            <form class="login-form" id="loginForm">
+                <h2>管理员登录</h2>
+                <div class="form-group">
+                    <label for="username">用户名</label>
+                    <input type="text" class="form-control" id="username" placeholder="请输入用户名" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input type="password" class="form-control" id="password" placeholder="请输入密码" required>
+                </div>
+                <button type="submit" class="login-btn">登录</button>
+                <p class="error-message" id="loginError">用户名或密码错误</p>
+            </form>
+            <a href="index.html" class="back-link">返回网站首页</a>
+        </div>
+    </div>
+
+    <!-- 管理系统主界面 -->
+    <div class="admin-container" id="adminPage">
+        <header class="admin-header">
+            <div class="admin-logo">
+                <h1>青空之恋 - 管理系统</h1>
+            </div>
+            <div class="admin-header-actions">
+                <a href="index.html" class="admin-header-btn" id="backToSite">返回网站</a>
+                <a href="#" class="admin-header-btn" id="logoutBtn">退出登录</a>
+            </div>
+        </header>
+
+        <main class="admin-main">
+            <div class="admin-sidebar">
+                <ul class="sidebar-menu">
+                    <li class="menu-item active" data-panel="carouselPanel">轮播图管理</li>
+                    <li class="menu-item" data-panel="gameIntroPanel">游戏介绍管理</li>
+                    <li class="menu-item" data-panel="charactersPanel">角色管理</li>
+                    <li class="menu-item" data-panel="screenshotsPanel">游戏截图管理</li>
+                    <li class="menu-item" data-panel="announcementsPanel">公告管理</li>
+                    <li class="menu-item" data-panel="settingsPanel">网站设置</li>
+                </ul>
+            </div>
+
+            <div class="admin-content">
+                <!-- 轮播图管理面板 -->
+                <div class="content-panel active" id="carouselPanel">
+                    <div class="panel-header">
+                        <h2>轮播图管理</h2>
+                        <p>管理网站首页的轮播图内容</p>
+                    </div>
+
+                    <a href="#" class="btn-add" id="addCarouselBtn">添加轮播图</a>
+
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3>轮播图列表</h3>
+                        </div>
+                        <table class="data-table" id="carouselTable">
+                            <thead>
+                                <tr>
+                                    <th>图片预览</th>
+                                    <th>标题</th>
+                                    <th>描述</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 轮播图数据行会动态添加在这里 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 游戏介绍管理面板 -->
+                <div class="content-panel" id="gameIntroPanel">
+                    <div class="panel-header">
+                        <h2>游戏介绍管理</h2>
+                        <p>编辑游戏介绍和特色内容</p>
+                    </div>
+
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3>基本信息</h3>
+                        </div>
+                        <form id="gameIntroForm">
+                            <div class="form-row">
+                                <label for="gameTitle">游戏标题</label>
+                                <input type="text" id="gameTitle" placeholder="输入游戏标题">
+                            </div>
+                            <div class="form-row">
+                                <label for="gameDescription">游戏描述</label>
+                                <textarea id="gameDescription" placeholder="输入游戏描述"></textarea>
+                            </div>
+                            <div class="form-row">
+                                <label for="gameImageUrl">主要图片URL</label>
+                                <input type="text" id="gameImageUrl" placeholder="输入图片URL">
+                            </div>
+                            <button type="submit" class="btn-save">保存更改</button>
+                        </form>
+                    </div>
+
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3>游戏特色</h3>
+                        </div>
+                        <div id="featuresList">
+                            <!-- 特色项目会动态添加在这里 -->
+                        </div>
+                        <div class="form-row">
+                            <button class="btn-add" id="addFeatureBtn">添加特色</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 角色管理面板 -->
+                <div class="content-panel" id="charactersPanel">
+                    <div class="panel-header">
+                        <h2>角色管理</h2>
+                        <p>管理游戏中的角色信息</p>
+                    </div>
+
+                    <a href="#" class="btn-add" id="addCharacterBtn">添加角色</a>
+
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3>角色列表</h3>
+                        </div>
+                        <table class="data-table" id="charactersTable">
+                            <thead>
+                                <tr>
+                                    <th>图片预览</th>
+                                    <th>角色名称</th>
+                                    <th>身份</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 角色数据行会动态添加在这里 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 游戏截图管理面板 -->
+                <div class="content-panel" id="screenshotsPanel">
+                    <div class="panel-header">
+                        <h2>游戏截图管理</h2>
+                        <p>管理展示的游戏截图</p>
+                    </div>
+
+                    <a href="#" class="btn-add" id="addScreenshotBtn">添加截图</a>
+
+                    <div class="admin-card">
+                        <div class="screenshots-grid" id="screenshotsGrid">
+                            <!-- 截图项目会动态添加在这里 -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 公告管理面板 -->
+                <div class="content-panel" id="announcementsPanel">
+                    <div class="panel-header">
+                        <h2>公告管理</h2>
+                        <p>管理游戏公告信息</p>
+                    </div>
+
+                    <a href="#" class="btn-add" id="addAnnouncementBtn">添加公告</a>
+
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3>公告列表</h3>
+                        </div>
+                        <table class="data-table" id="announcementsTable">
+                            <thead>
+                                <tr>
+                                    <th>日期</th>
+                                    <th>标题</th>
+                                    <th>内容预览</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 公告数据行会动态添加在这里 -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 网站设置面板 -->
+                <div class="content-panel" id="settingsPanel">
+                    <div class="panel-header">
+                        <h2>网站设置</h2>
+                        <p>管理网站基本信息和LOGO</p>
+                    </div>
+
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3>网站LOGO</h3>
+                        </div>
+                        <form id="logoForm">
+                            <div class="form-row">
+                                <label for="logoUrl">LOGO图片URL</label>
+                                <input type="text" id="logoUrl" placeholder="输入LOGO图片URL">
+                            </div>
+                            <div class="form-row">
+                                <button type="submit" class="btn-save">保存LOGO</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="admin-card">
+                        <div class="card-header">
+                            <h3>网站信息</h3>
+                        </div>
+                        <form id="siteInfoForm">
+                            <div class="form-row">
+                                <label for="siteName">网站名称</label>
+                                <input type="text" id="siteName" placeholder="输入网站名称">
+                            </div>
+                            <div class="form-row">
+                                <label for="siteDescription">网站描述</label>
+                                <textarea id="siteDescription" placeholder="输入网站描述"></textarea>
+                            </div>
+                            <div class="form-row">
+                                <button type="submit" class="btn-save">保存信息</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 添加轮播图弹窗 -->
+    <div class="modal" id="addCarouselModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">添加轮播图</h3>
+                <button class="modal-close" id="closeCarouselModal">&times;</button>
+            </div>
+            <form id="carouselForm">
+                <div class="form-row">
+                    <label for="carouselImageUrl">图片URL</label>
+                    <input type="text" id="carouselImageUrl" placeholder="输入图片URL" required>
+                </div>
+                <div class="form-row">
+                    <label for="carouselTitle">标题</label>
+                    <input type="text" id="carouselTitle" placeholder="输入标题" required>
+                </div>
+                <div class="form-row">
+                    <label for="carouselDescription">描述</label>
+                    <textarea id="carouselDescription" placeholder="输入描述" required></textarea>
+                </div>
+                <div class="form-row">
+                    <label for="carouselBtnText">按钮文字</label>
+                    <input type="text" id="carouselBtnText" placeholder="输入按钮文字">
+                </div>
+                <div class="form-row">
+                    <label for="carouselBtnLink">按钮链接</label>
+                    <input type="text" id="carouselBtnLink" placeholder="输入按钮链接">
+                </div>
+                <div class="form-row">
+                    <button type="submit" class="btn-save">保存轮播图</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 添加角色弹窗 -->
+    <div class="modal" id="addCharacterModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">添加角色</h3>
+                <button class="modal-close" id="closeCharacterModal">&times;</button>
+            </div>
+            <form id="characterForm">
+                <div class="form-row">
+                    <label for="characterImageUrl">图片URL</label>
+                    <input type="text" id="characterImageUrl" placeholder="输入图片URL" required>
+                </div>
+                <div class="form-row">
+                    <label for="characterName">角色名称</label>
+                    <input type="text" id="characterName" placeholder="输入角色名称" required>
+                </div>
+                <div class="form-row">
+                    <label for="characterRole">身份</label>
+                    <input type="text" id="characterRole" placeholder="输入角色身份" required>
+                </div>
+                <div class="form-row">
+                    <label for="characterDescription">描述</label>
+                    <textarea id="characterDescription" placeholder="输入角色描述" required></textarea>
+                </div>
+                <div class="form-row">
+                    <button type="submit" class="btn-save">保存角色</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 添加截图弹窗 -->
+    <div class="modal" id="addScreenshotModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">添加游戏截图</h3>
+                <button class="modal-close" id="closeScreenshotModal">&times;</button>
+            </div>
+            <form id="screenshotForm">
+                <div class="form-row">
+                    <label for="screenshotImageUrl">图片URL</label>
+                    <input type="text" id="screenshotImageUrl" placeholder="输入图片URL" required>
+                </div>
+                <div class="form-row">
+                    <label for="screenshotDescription">描述</label>
+                    <textarea id="screenshotDescription" placeholder="输入截图描述" required></textarea>
+                </div>
+                <div class="form-row">
+                    <button type="submit" class="btn-save">保存截图</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 添加公告弹窗 -->
+    <div class="modal" id="addAnnouncementModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">添加公告</h3>
+                <button class="modal-close" id="closeAnnouncementModal">&times;</button>
+            </div>
+            <form id="announcementForm">
+                <div class="form-row">
+                    <label for="announcementDate">日期</label>
+                    <input type="date" id="announcementDate" required>
+                </div>
+                <div class="form-row">
+                    <label for="announcementTitle">标题</label>
+                    <input type="text" id="announcementTitle" placeholder="输入标题" required>
+                </div>
+                <div class="form-row">
+                    <label for="announcementContent">内容</label>
+                    <textarea id="announcementContent" placeholder="输入内容" required></textarea>
+                </div>
+                <div class="form-row">
+                    <button type="submit" class="btn-save">保存公告</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 添加特色弹窗 -->
+    <div class="modal" id="addFeatureModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">添加游戏特色</h3>
+                <button class="modal-close" id="closeFeatureModal">&times;</button>
+            </div>
+            <form id="featureForm">
+                <div class="form-row">
+                    <label for="featureIcon">图标</label>
+                    <input type="text" id="featureIcon" placeholder="输入图标名称" required>
+                </div>
+                <div class="form-row">
+                    <label for="featureTitle">标题</label>
+                    <input type="text" id="featureTitle" placeholder="输入特色标题" required>
+                </div>
+                <div class="form-row">
+                    <label for="featureDescription">描述</label>
+                    <textarea id="featureDescription" placeholder="输入特色描述" required></textarea>
+                </div>
+                <div class="form-row">
+                    <button type="submit" class="btn-save">保存特色</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // 初始化数据
+        let carouselData = localStorage.getItem('carouselData') ? 
+            JSON.parse(localStorage.getItem('carouselData')) : 
+            [
+                {
+                    id: 1,
+                    imageUrl: "https://img.zcool.cn/community/01a31c59ac1782a8012028a96df485.jpg",
+                    title: "青空之恋",
+                    description: "一场浪漫的二次元冒险，邂逅你的命中注定",
+                    btnText: "立即下载",
+                    btnLink: "#download"
+                },
+                {
+                    id: 2,
+                    imageUrl: "https://img.zcool.cn/community/011e7d5c1bb41fa80121ab5d692221.jpg",
+                    title: "全新角色登场",
+                    description: "来自异世界的神秘少女，等待你的发现",
+                    btnText: "了解更多",
+                    btnLink: "#characters"
+                }
+            ];
+            
+        let gameIntroData = localStorage.getItem('gameIntroData') ? 
+            JSON.parse(localStorage.getItem('gameIntroData')) : 
+            {
+                title: "梦幻二次元冒险",
+                description: "《青空之恋》是一款充满浪漫和冒险的二次元游戏。在这个世界中，你将扮演一名普通学生，意外获得穿越异世界的能力，并与各种性格迥异的角色相遇，展开一段段难忘的故事。游戏融合了恋爱模拟、角色扮演和解谜元素，让你在体验刺激冒险的同时，也能感受到甜蜜的恋爱氛围。",
+                imageUrl: "https://img.zcool.cn/community/01fdaa5c2fd78ca801203d226d96ab.jpg",
+                features: [
+                    {
+                        id: 1,
+                        icon: "❤️",
+                        title: "多结局剧情",
+                        description: "根据你的选择，体验不同的故事发展和结局"
+                    },
+                    {
+                        id: 2,
+                        icon: "🎮",
+                        title: "精美立绘",
+                        description: "高质量角色立绘和CG，带来视觉盛宴"
+                    },
+                    {
+                        id: 3,
+                        icon: "🎵",
+                        title: "原创配乐",
+                        description: "专业制作的游戏配乐，增强沉浸感"
+                    },
+                    {
+                        id: 4,
+                        icon: "🌟",
+                        title: "互动玩法",
+                        description: "丰富的互动玩法，每次体验都充满惊喜"
+                    }
+                ]
+            };
+            
+        let charactersData = localStorage.getItem('charactersData') ? 
+            JSON.parse(localStorage.getItem('charactersData')) : 
+            [
+                {
+                    id: 1,
+                    imageUrl: "https://img.zcool.cn/community/0153d25af36ec0a8012092527b3953.jpg",
+                    name: "樱井花",
+                    role: "女主角",
+                    description: "性格开朗活泼的高中生，拥有看到其他人看不到的异世界能力。喜欢甜食和可爱的东西，对未知充满好奇心。"
+                },
+                {
+                    id: 2,
+                    imageUrl: "https://img.zcool.cn/community/013ade5af56df0a801219c778e2d91.jpg",
+                    name: "月城司",
+                    role: "男主角",
+                    description: "冷静沉着的转校生，实际上是来自异世界的使者。有着神秘的过去和使命，逐渐被女主角的热情感染。"
+                },
+                {
+                    id: 3,
+                    imageUrl: "https://img.zcool.cn/community/01be445aebeb50a801214551e4b1db.jpg",
+                    name: "星野凛",
+                    role: "竞争对手",
+                    description: "学校的人气偶像，聪明冷静，看似完美无缺，但有着不为人知的秘密和内心的脆弱。"
+                }
+            ];
+            
+        let screenshotsData = localStorage.getItem('screenshotsData') ? 
+            JSON.parse(localStorage.getItem('screenshotsData')) : 
+            [
+                {
+                    id: 1,
+                    imageUrl: "https://img.zcool.cn/community/01e26c5d5812fba8012187f4c73886.jpg",
+                    description: "校园场景，樱花盛开的季节"
+                },
+                {
+                    id: 2,
+                    imageUrl: "https://img.zcool.cn/community/0142c15bf8f513a801209e1f4af04d.jpg",
+                    description: "与角色互动的对话场景"
+                },
+                {
+                    id: 3,
+                    imageUrl: "https://img.zcool.cn/community/01bb355d29d8cfa801212b9f10ffd1.jpg",
+                    description: "神秘的异世界场景"
+                },
+                {
+                    id: 4,
+                    imageUrl: "https://img.zcool.cn/community/0173ed5d1c94e3a8012109742057a3.jpg",
+                    description: "精彩的剧情CG画面"
+                }
+            ];
+            
+        let announcementsData = localStorage.getItem('announcementsData') ? 
+            JSON.parse(localStorage.getItem('announcementsData')) : 
+            [
+                {
+                    id: 1,
+                    date: "2023-05-15",
+                    title: "游戏正式上线公告",
+                    content: "《青空之恋》将于下周正式在各大平台上线！感谢所有支持我们的玩家，我们准备了丰富的上线礼包等你来领取。"
+                },
+                {
+                    id: 2,
+                    date: "2023-05-10",
+                    title: "游戏预约突破10万",
+                    content: "感谢各位玩家的支持，《青空之恋》预约人数已突破10万！预约奖励将在游戏上线后发放到各位的游戏账号中。"
+                },
+                {
+                    id: 3,
+                    date: "2023-05-01",
+                    title: "游戏宣传片发布",
+                    content: "《青空之恋》宣传片正式发布，快来一睹游戏的精彩内容吧！视频中还隐藏了一些彩蛋，等待细心的玩家发现。"
+                }
+            ];
+            
+        let siteSettings = localStorage.getItem('siteSettings') ? 
+            JSON.parse(localStorage.getItem('siteSettings')) : 
+            {
+                logoUrl: "images/logo.png",
+                siteName: "青空之恋",
+                siteDescription: "浪漫二次元游戏官方网站"
+            };
+            
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', function() {
+            // 检查是否已登录
+            const isLoggedIn = localStorage.getItem('adminLoggedIn') === 'true';
+            if (isLoggedIn) {
+                showAdminPage();
+                loadAllData();
+            }
+            
+            // 登录表单提交
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                if (username === 'admin' && password === 'admin123') {
+                    localStorage.setItem('adminLoggedIn', 'true');
+                    showAdminPage();
+                    loadAllData();
+                } else {
+                    document.getElementById('loginError').style.display = 'block';
+                }
+            });
+            
+            // 退出登录
+            document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('adminLoggedIn');
+                showLoginPage();
+            });
+            
+            // 返回网站
+            document.getElementById('backToSite').addEventListener('click', function(e) {
+                // 这里不需要阻止默认行为，让它正常跳转
+            });
+            
+            // 侧边栏菜单点击
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    // 移除所有active类
+                    menuItems.forEach(mi => mi.classList.remove('active'));
+                    document.querySelectorAll('.content-panel').forEach(panel => panel.classList.remove('active'));
+                    
+                    // 添加active类到当前项
+                    this.classList.add('active');
+                    const panelId = this.getAttribute('data-panel');
+                    document.getElementById(panelId).classList.add('active');
+                });
+            });
+            
+            // 添加轮播图按钮点击
+            document.getElementById('addCarouselBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('addCarouselModal').classList.add('active');
+            });
+            
+            // 关闭轮播图弹窗
+            document.getElementById('closeCarouselModal').addEventListener('click', function() {
+                document.getElementById('addCarouselModal').classList.remove('active');
+            });
+            
+            // 轮播图表单提交
+            document.getElementById('carouselForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const newCarousel = {
+                    id: Date.now(),
+                    imageUrl: document.getElementById('carouselImageUrl').value,
+                    title: document.getElementById('carouselTitle').value,
+                    description: document.getElementById('carouselDescription').value,
+                    btnText: document.getElementById('carouselBtnText').value,
+                    btnLink: document.getElementById('carouselBtnLink').value
+                };
+                
+                carouselData.push(newCarousel);
+                localStorage.setItem('carouselData', JSON.stringify(carouselData));
+                
+                loadCarouselData();
+                document.getElementById('addCarouselModal').classList.remove('active');
+                document.getElementById('carouselForm').reset();
+            });
+            
+            // 游戏介绍表单提交
+            document.getElementById('gameIntroForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                gameIntroData.title = document.getElementById('gameTitle').value;
+                gameIntroData.description = document.getElementById('gameDescription').value;
+                gameIntroData.imageUrl = document.getElementById('gameImageUrl').value;
+                
+                localStorage.setItem('gameIntroData', JSON.stringify(gameIntroData));
+                alert('游戏介绍保存成功！');
+            });
+            
+            // 添加特色按钮点击
+            document.getElementById('addFeatureBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('addFeatureModal').classList.add('active');
+            });
+            
+            // 关闭特色弹窗
+            document.getElementById('closeFeatureModal').addEventListener('click', function() {
+                document.getElementById('addFeatureModal').classList.remove('active');
+            });
+            
+            // 特色表单提交
+            document.getElementById('featureForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const newFeature = {
+                    id: Date.now(),
+                    icon: document.getElementById('featureIcon').value,
+                    title: document.getElementById('featureTitle').value,
+                    description: document.getElementById('featureDescription').value
+                };
+                
+                gameIntroData.features.push(newFeature);
+                localStorage.setItem('gameIntroData', JSON.stringify(gameIntroData));
+                
+                loadFeaturesData();
+                document.getElementById('addFeatureModal').classList.remove('active');
+                document.getElementById('featureForm').reset();
+            });
+            
+            // 添加角色按钮点击
+            document.getElementById('addCharacterBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('addCharacterModal').classList.add('active');
+            });
+            
+            // 关闭角色弹窗
+            document.getElementById('closeCharacterModal').addEventListener('click', function() {
+                document.getElementById('addCharacterModal').classList.remove('active');
+            });
+            
+            // 角色表单提交
+            document.getElementById('characterForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const newCharacter = {
+                    id: Date.now(),
+                    imageUrl: document.getElementById('characterImageUrl').value,
+                    name: document.getElementById('characterName').value,
+                    role: document.getElementById('characterRole').value,
+                    description: document.getElementById('characterDescription').value
+                };
+                
+                charactersData.push(newCharacter);
+                localStorage.setItem('charactersData', JSON.stringify(charactersData));
+                
+                loadCharactersData();
+                document.getElementById('addCharacterModal').classList.remove('active');
+                document.getElementById('characterForm').reset();
+            });
+            
+            // 添加截图按钮点击
+            document.getElementById('addScreenshotBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('addScreenshotModal').classList.add('active');
+            });
+            
+            // 关闭截图弹窗
+            document.getElementById('closeScreenshotModal').addEventListener('click', function() {
+                document.getElementById('addScreenshotModal').classList.remove('active');
+            });
+            
+            // 截图表单提交
+            document.getElementById('screenshotForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const newScreenshot = {
+                    id: Date.now(),
+                    imageUrl: document.getElementById('screenshotImageUrl').value,
+                    description: document.getElementById('screenshotDescription').value
+                };
+                
+                screenshotsData.push(newScreenshot);
+                localStorage.setItem('screenshotsData', JSON.stringify(screenshotsData));
+                
+                loadScreenshotsData();
+                document.getElementById('addScreenshotModal').classList.remove('active');
+                document.getElementById('screenshotForm').reset();
+            });
+            
+            // 添加公告按钮点击
+            document.getElementById('addAnnouncementBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('addAnnouncementModal').classList.add('active');
+            });
+            
+            // 关闭公告弹窗
+            document.getElementById('closeAnnouncementModal').addEventListener('click', function() {
+                document.getElementById('addAnnouncementModal').classList.remove('active');
+            });
+            
+            // 公告表单提交
+            document.getElementById('announcementForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const newAnnouncement = {
+                    id: Date.now(),
+                    date: document.getElementById('announcementDate').value,
+                    title: document.getElementById('announcementTitle').value,
+                    content: document.getElementById('announcementContent').value
+                };
+                
+                announcementsData.push(newAnnouncement);
+                localStorage.setItem('announcementsData', JSON.stringify(announcementsData));
+                
+                loadAnnouncementsData();
+                document.getElementById('addAnnouncementModal').classList.remove('active');
+                document.getElementById('announcementForm').reset();
+            });
+            
+            // LOGO表单提交
+            document.getElementById('logoForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                siteSettings.logoUrl = document.getElementById('logoUrl').value;
+                localStorage.setItem('siteSettings', JSON.stringify(siteSettings));
+                
+                alert('LOGO保存成功！');
+            });
+            
+            // 网站信息表单提交
+            document.getElementById('siteInfoForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                siteSettings.siteName = document.getElementById('siteName').value;
+                siteSettings.siteDescription = document.getElementById('siteDescription').value;
+                localStorage.setItem('siteSettings', JSON.stringify(siteSettings));
+                
+                alert('网站信息保存成功！');
+            });
+        });
+
+        // 显示登录页面
+        function showLoginPage() {
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('adminPage').style.display = 'none';
+        }
+
+        // 显示管理页面
+        function showAdminPage() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('adminPage').style.display = 'block';
+        }
+
+        // 加载所有数据
+        function loadAllData() {
+            loadCarouselData();
+            loadGameIntroData();
+            loadFeaturesData();
+            loadCharactersData();
+            loadScreenshotsData();
+            loadAnnouncementsData();
+            loadSiteSettings();
+        }
+
+        // 加载轮播图数据
+        function loadCarouselData() {
+            const tbody = document.querySelector('#carouselTable tbody');
+            tbody.innerHTML = '';
+            
+            carouselData.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><img src="${item.imageUrl}" alt="${item.title}" class="table-image"></td>
+                    <td>${item.title}</td>
+                    <td>${item.description.length > 30 ? item.description.substring(0, 30) + '...' : item.description}</td>
+                    <td class="actions">
+                        <button class="btn-edit" onclick="editCarousel(${item.id})">编辑</button>
+                        <button class="btn-delete" onclick="deleteCarousel(${item.id})">删除</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // 加载游戏介绍数据
+        function loadGameIntroData() {
+            document.getElementById('gameTitle').value = gameIntroData.title;
+            document.getElementById('gameDescription').value = gameIntroData.description;
+            document.getElementById('gameImageUrl').value = gameIntroData.imageUrl;
+        }
+
+        // 加载游戏特色数据
+        function loadFeaturesData() {
+            const featuresList = document.getElementById('featuresList');
+            featuresList.innerHTML = '';
+            
+            gameIntroData.features.forEach(feature => {
+                const featureDiv = document.createElement('div');
+                featureDiv.className = 'form-row';
+                featureDiv.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <strong>${feature.icon} ${feature.title}</strong>
+                        <div>
+                            <button class="btn-edit" onclick="editFeature(${feature.id})">编辑</button>
+                            <button class="btn-delete" onclick="deleteFeature(${feature.id})">删除</button>
+                        </div>
+                    </div>
+                    <p>${feature.description}</p>
+                `;
+                featuresList.appendChild(featureDiv);
+            });
+        }
+
+        // 加载角色数据
+        function loadCharactersData() {
+            const tbody = document.querySelector('#charactersTable tbody');
+            tbody.innerHTML = '';
+            
+            charactersData.forEach(character => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><img src="${character.imageUrl}" alt="${character.name}" class="table-image"></td>
+                    <td>${character.name}</td>
+                    <td>${character.role}</td>
+                    <td class="actions">
+                        <button class="btn-edit" onclick="editCharacter(${character.id})">编辑</button>
+                        <button class="btn-delete" onclick="deleteCharacter(${character.id})">删除</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // 加载截图数据
+        function loadScreenshotsData() {
+            const grid = document.getElementById('screenshotsGrid');
+            grid.innerHTML = '';
+            
+            screenshotsData.forEach(screenshot => {
+                const item = document.createElement('div');
+                item.className = 'screenshot-item';
+                item.innerHTML = `
+                    <div class="screenshot-img" style="background-image: url('${screenshot.imageUrl}');"></div>
+                    <div class="screenshot-info">
+                        <p>${screenshot.description}</p>
+                        <button class="btn-delete" onclick="deleteScreenshot(${screenshot.id})">删除</button>
+                    </div>
+                `;
+                grid.appendChild(item);
+            });
+        }
+
+        // 加载公告数据
+        function loadAnnouncementsData() {
+            const tbody = document.querySelector('#announcementsTable tbody');
+            tbody.innerHTML = '';
+            
+            announcementsData.forEach(announcement => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${announcement.date}</td>
+                    <td>${announcement.title}</td>
+                    <td>${announcement.content.length > 30 ? announcement.content.substring(0, 30) + '...' : announcement.content}</td>
+                    <td class="actions">
+                        <button class="btn-edit" onclick="editAnnouncement(${announcement.id})">编辑</button>
+                        <button class="btn-delete" onclick="deleteAnnouncement(${announcement.id})">删除</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        // 加载网站设置
+        function loadSiteSettings() {
+            document.getElementById('logoUrl').value = siteSettings.logoUrl;
+            document.getElementById('siteName').value = siteSettings.siteName;
+            document.getElementById('siteDescription').value = siteSettings.siteDescription;
+        }
+
+        // 删除轮播图
+        function deleteCarousel(id) {
+            if (confirm('确定要删除这个轮播图吗？')) {
+                carouselData = carouselData.filter(item => item.id !== id);
+                localStorage.setItem('carouselData', JSON.stringify(carouselData));
+                loadCarouselData();
+            }
+        }
+
+        // 删除特色
+        function deleteFeature(id) {
+            if (confirm('确定要删除这个特色吗？')) {
+                gameIntroData.features = gameIntroData.features.filter(item => item.id !== id);
+                localStorage.setItem('gameIntroData', JSON.stringify(gameIntroData));
+                loadFeaturesData();
+            }
+        }
+
+        // 删除角色
+        function deleteCharacter(id) {
+            if (confirm('确定要删除这个角色吗？')) {
+                charactersData = charactersData.filter(item => item.id !== id);
+                localStorage.setItem('charactersData', JSON.stringify(charactersData));
+                loadCharactersData();
+            }
+        }
+
+        // 删除截图
+        function deleteScreenshot(id) {
+            if (confirm('确定要删除这个截图吗？')) {
+                screenshotsData = screenshotsData.filter(item => item.id !== id);
+                localStorage.setItem('screenshotsData', JSON.stringify(screenshotsData));
+                loadScreenshotsData();
+            }
+        }
+
+        // 删除公告
+        function deleteAnnouncement(id) {
+            if (confirm('确定要删除这个公告吗？')) {
+                announcementsData = announcementsData.filter(item => item.id !== id);
+                localStorage.setItem('announcementsData', JSON.stringify(announcementsData));
+                loadAnnouncementsData();
+            }
+        }
+
+        // 编辑轮播图（简化版，实际应用中可以扩展）
+        function editCarousel(id) {
+            const carousel = carouselData.find(item => item.id === id);
+            if (carousel) {
+                document.getElementById('carouselImageUrl').value = carousel.imageUrl;
+                document.getElementById('carouselTitle').value = carousel.title;
+                document.getElementById('carouselDescription').value = carousel.description;
+                document.getElementById('carouselBtnText').value = carousel.btnText || '';
+                document.getElementById('carouselBtnLink').value = carousel.btnLink || '';
+                
+                // 删除旧数据
+                carouselData = carouselData.filter(item => item.id !== id);
+                
+                document.getElementById('addCarouselModal').classList.add('active');
+            }
+        }
+
+        // 编辑特色（简化版）
+        function editFeature(id) {
+            const feature = gameIntroData.features.find(item => item.id === id);
+            if (feature) {
+                document.getElementById('featureIcon').value = feature.icon;
+                document.getElementById('featureTitle').value = feature.title;
+                document.getElementById('featureDescription').value = feature.description;
+                
+                // 删除旧数据
+                gameIntroData.features = gameIntroData.features.filter(item => item.id !== id);
+                localStorage.setItem('gameIntroData', JSON.stringify(gameIntroData));
+                
+                document.getElementById('addFeatureModal').classList.add('active');
+            }
+        }
+
+        // 编辑角色（简化版）
+        function editCharacter(id) {
+            const character = charactersData.find(item => item.id === id);
+            if (character) {
+                document.getElementById('characterImageUrl').value = character.imageUrl;
+                document.getElementById('characterName').value = character.name;
+                document.getElementById('characterRole').value = character.role;
+                document.getElementById('characterDescription').value = character.description;
+                
+                // 删除旧数据
+                charactersData = charactersData.filter(item => item.id !== id);
+                
+                document.getElementById('addCharacterModal').classList.add('active');
+            }
+        }
+
+        // 编辑公告（简化版）
+        function editAnnouncement(id) {
+            const announcement = announcementsData.find(item => item.id === id);
+            if (announcement) {
+                document.getElementById('announcementDate').value = announcement.date;
+                document.getElementById('announcementTitle').value = announcement.title;
+                document.getElementById('announcementContent').value = announcement.content;
+                
+                // 删除旧数据
+                announcementsData = announcementsData.filter(item => item.id !== id);
+                
+                document.getElementById('addAnnouncementModal').classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
