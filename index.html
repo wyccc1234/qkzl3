@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>青空之恋 - 校园恋爱视觉小说</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- 预加载字体 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand site-name" href="#">
+        <img src="img/logo.png" alt="青空之恋" class="navbar-logo">
+        青空之恋
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="#home">首页</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#game-intro">游戏介绍</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#characters">角色介绍</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#screenshots">游戏截图</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#news">最新消息</a>
+          </li>
+        </ul>
+        
+        <!-- 用户菜单（已登录） -->
+        <div class="user-menu" id="user-menu-container" style="display: none;">
+          <div class="dropdown">
+            <a href="#" class="dropdown-toggle user-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <div class="avatar">
+                <img src="https://i.pravatar.cc/150" alt="用户头像" id="user-avatar">
+              </div>
+              <span id="current-username">用户名</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+              <li><a class="dropdown-item" href="#"><i class="bi bi-person-circle"></i> 个人中心</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-heart"></i> 我的收藏</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-chat-dots"></i> 我的评论</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li id="admin-btn-container" style="display: none;">
+                <a class="dropdown-item" href="#" id="admin-btn"><i class="bi bi-gear"></i> 管理系统</a>
+              </li>
+              <li><a class="dropdown-item" href="#" id="logout-btn"><i class="bi bi-box-arrow-right"></i> 退出登录</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- 游客菜单（未登录） -->
+        <div class="auth-buttons" id="guest-menu-container">
+          <button class="btn btn-outline-primary btn-sm" id="login-btn">登录</button>
+          <button class="btn btn-primary btn-sm" id="register-btn">注册</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 英雄区域 -->
+  <section id="home" class="hero-section">
+    <div class="cherry-blossoms">
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="petal"></div>
+      <div class="petal"></div>
+    </div>
+    
+    <div class="container">
+      <div class="hero-content">
+        <h1 class="hero-title">青空之恋</h1>
+        <p class="hero-description">在樱花飞舞的校园中，开启一段浪漫的恋爱故事</p>
+        <div class="hero-buttons">
+          <a href="#game-intro" class="btn btn-primary btn-lg">了解游戏</a>
+          <a href="#" class="btn btn-secondary btn-lg ms-2">立即下载</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="hero-wave">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="#ffffff" fill-opacity="1" d="M0,192L48,181.3C96,171,192,149,288,149.3C384,149,480,171,576,176C672,181,768,171,864,144C960,117,1056,75,1152,53.3C1248,32,1344,32,1392,32L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- 游戏介绍 -->
+  <section id="game-intro" class="game-intro">
+    <div class="container">
+      <div class="section-title">
+        <h2>游戏介绍</h2>
+        <p>探索青春与爱情交织的视觉小说</p>
+      </div>
+      
+      <div class="row align-items-center mb-5">
+        <div class="col-lg-6 order-lg-2 mb-4 mb-lg-0">
+          <img src="https://images.unsplash.com/photo-1560419015-7c427e8ae5ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="游戏介绍" class="img-fluid rounded shadow">
+        </div>
+        <div class="col-lg-6 order-lg-1">
+          <h3 class="mb-4">青春的邂逅，樱花下的约定</h3>
+          <p class="lead mb-4">《青空之恋》是一款以校园为舞台的浪漫恋爱视觉小说游戏。在这里，你将扮演刚刚转学到明樱学园的主人公，邂逅各种性格迥异的少女，展开一段难忘的青春故事。</p>
+          <p>透过精美的立绘和CG，悦耳的音乐和配音，以及扣人心弦的剧情，你将感受到校园恋爱的甜蜜与酸楚。游戏中的每一个选择都将影响故事的发展，多样的结局等待你去探索。</p>
+        </div>
+      </div>
+      
+      <div class="row mt-5">
+        <div class="col-md-4 mb-4">
+          <div class="feature-box">
+            <div class="feature-icon">
+              <i class="bi bi-heart-fill"></i>
+            </div>
+            <h3>多样化的角色</h3>
+            <p>游戏中有数位个性鲜明的少女角色，每位角色都有独特的背景故事和恋爱剧情。通过与她们的互动，逐渐揭开她们的秘密。</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="feature-box">
+            <div class="feature-icon">
+              <i class="bi bi-book-fill"></i>
+            </div>
+            <h3>精彩的剧情</h3>
+            <p>游戏拥有超过30万字的剧本，精心编织的故事线会带给您感动、欢笑和泪水。每个角色都有多个结局，等待您去发现。</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="feature-box">
+            <div class="feature-icon">
+              <i class="bi bi-image-fill"></i>
+            </div>
+            <h3>精美的画面</h3>
+            <p>由知名画师绘制的精美立绘和CG场景，细腻的人物表情和场景描绘，为您呈现出一个美丽的校园爱情世界。</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 游戏介绍评论区 -->
+      <div class="comment-section mt-5">
+        <h3 class="comment-title">评论区</h3>
+        
+        <!-- 发表评论 -->
+        <div class="post-comment">
+          <div class="user-avatar">
+            <img src="https://i.pravatar.cc/150" alt="用户头像">
+          </div>
+          <div class="comment-input-area">
+            <textarea id="comment-input-game-intro" class="form-control" placeholder="写下你的评论..."></textarea>
+            <button class="btn btn-primary mt-2 post-comment-btn" data-post-id="game-intro">发表评论</button>
+          </div>
+        </div>
+        
+        <!-- 评论列表 -->
+        <div id="game-intro-comments" class="comment-list">
+          <!-- 评论将通过JS动态加载 -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 角色介绍 -->
+  <section id="characters" class="characters">
+    <div class="container">
+      <div class="section-title">
+        <h2>角色介绍</h2>
+        <p>认识那些将与你共度青春时光的少女们</p>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="character-card" data-character-id="1">
+            <div class="character-image">
+              <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YW5pbWUlMjBnaXJsfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="樱井花">
+            </div>
+            <div class="character-info">
+              <h3>樱井花</h3>
+              <span class="personality">开朗活泼</span>
+              <p>学校的人气偶像，性格开朗活泼，喜欢帮助他人。虽然看起来无忧无虑，但其实背负着不为人知的秘密。</p>
+              <div class="character-comments-toggle">
+                <a href="#" class="toggle-comments" data-character-id="1">查看评论 <i class="bi bi-chat-fill"></i></a>
+              </div>
+            </div>
+            <!-- 角色评论区 -->
+            <div class="character-comments-container" id="character-comments-container-1" style="display: none;">
+              <div class="post-comment">
+                <div class="user-avatar">
+                  <img src="https://i.pravatar.cc/150" alt="用户头像">
+                </div>
+                <div class="comment-input-area">
+                  <textarea id="comment-input-character-1" class="form-control" placeholder="写下你的评论..."></textarea>
+                  <button class="btn btn-primary mt-2 post-comment-btn" data-post-id="character-1">发表评论</button>
+                </div>
+              </div>
+              <div id="character-comments-1" class="comment-list">
+                <!-- 角色评论将通过JS动态加载 -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="character-card" data-character-id="2">
+            <div class="character-image">
+              <img src="https://images.unsplash.com/photo-1578635073855-a89b3dd5cc18?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8YW5pbWUlMjBnaXJsfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="星野明日香">
+            </div>
+            <div class="character-info">
+              <h3>星野明日香</h3>
+              <span class="personality">文静聪慧</span>
+              <p>学生会副会长，学习成绩优异，性格温柔文静。在图书馆偶遇主角后，两人因共同的兴趣爱好而逐渐接近。</p>
+              <div class="character-comments-toggle">
+                <a href="#" class="toggle-comments" data-character-id="2">查看评论 <i class="bi bi-chat-fill"></i></a>
+              </div>
+            </div>
+            <!-- 角色评论区 -->
+            <div class="character-comments-container" id="character-comments-container-2" style="display: none;">
+              <div class="post-comment">
+                <div class="user-avatar">
+                  <img src="https://i.pravatar.cc/150" alt="用户头像">
+                </div>
+                <div class="comment-input-area">
+                  <textarea id="comment-input-character-2" class="form-control" placeholder="写下你的评论..."></textarea>
+                  <button class="btn btn-primary mt-2 post-comment-btn" data-post-id="character-2">发表评论</button>
+                </div>
+              </div>
+              <div id="character-comments-2" class="comment-list">
+                <!-- 角色评论将通过JS动态加载 -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="character-card" data-character-id="3">
+            <div class="character-image">
+              <img src="https://images.unsplash.com/photo-1541727687969-ce40ef662a58?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8YW5pbWUlMjBnaXJsfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="月川千寻">
+            </div>
+            <div class="character-info">
+              <h3>月川千寻</h3>
+              <span class="personality">傲娇可爱</span>
+              <p>美术社的天才少女，性格有些孤僻和傲娇。虽然对主角总是冷言冷语，但其实内心渴望被理解和关心。</p>
+              <div class="character-comments-toggle">
+                <a href="#" class="toggle-comments" data-character-id="3">查看评论 <i class="bi bi-chat-fill"></i></a>
+              </div>
+            </div>
+            <!-- 角色评论区 -->
+            <div class="character-comments-container" id="character-comments-container-3" style="display: none;">
+              <div class="post-comment">
+                <div class="user-avatar">
+                  <img src="https://i.pravatar.cc/150" alt="用户头像">
+                </div>
+                <div class="comment-input-area">
+                  <textarea id="comment-input-character-3" class="form-control" placeholder="写下你的评论..."></textarea>
+                  <button class="btn btn-primary mt-2 post-comment-btn" data-post-id="character-3">发表评论</button>
+                </div>
+              </div>
+              <div id="character-comments-3" class="comment-list">
+                <!-- 角色评论将通过JS动态加载 -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 游戏截图 -->
+  <section id="screenshots" class="screenshots">
+    <div class="container">
+      <div class="section-title">
+        <h2>游戏截图</h2>
+        <p>精美的场景与CG画面展示</p>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="screenshot-item">
+            <a href="https://images.unsplash.com/photo-1542051841857-5f90071e7989?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8amFwYW58ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" data-fancybox="screenshots" data-caption="樱花树下的约定">
+              <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8amFwYW58ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" alt="樱花树下的约定">
+            </a>
+            <p class="caption">樱花树下的约定</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="screenshot-item">
+            <a href="https://images.unsplash.com/photo-1528360983277-13d401cdc186?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8amFwYW4lMjBzY2hvb2x8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" data-fancybox="screenshots" data-caption="教室里的回忆">
+              <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8amFwYW4lMjBzY2hvb2x8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" alt="教室里的回忆">
+            </a>
+            <p class="caption">教室里的回忆</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="screenshot-item">
+            <a href="https://images.unsplash.com/photo-1480796927426-f609979314bd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dG9reW98ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60" data-fancybox="screenshots" data-caption="放学后的约会">
+              <img src="https://images.unsplash.com/photo-1480796927426-f609979314bd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dG9reW98ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60" alt="放学后的约会">
+            </a>
+            <p class="caption">放学后的约会</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 游戏截图评论区 -->
+      <div class="comment-section mt-5">
+        <h3 class="comment-title">评论区</h3>
+        
+        <!-- 发表评论 -->
+        <div class="post-comment">
+          <div class="user-avatar">
+            <img src="https://i.pravatar.cc/150" alt="用户头像">
+          </div>
+          <div class="comment-input-area">
+            <textarea id="comment-input-screenshots" class="form-control" placeholder="写下你的评论..."></textarea>
+            <button class="btn btn-primary mt-2 post-comment-btn" data-post-id="screenshots">发表评论</button>
+          </div>
+        </div>
+        
+        <!-- 评论列表 -->
+        <div id="screenshots-comments" class="comment-list">
+          <!-- 评论将通过JS动态加载 -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 最新动态 -->
+  <section id="news" class="news">
+    <div class="container">
+      <div class="section-title">
+        <h2>最新动态</h2>
+        <p>了解游戏的最新更新和活动</p>
+      </div>
+      
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="announcement-item important">
+            <div class="announcement-date">2023年7月15日</div>
+            <h3 class="announcement-title">《青空之恋》正式版发布！</h3>
+            <p>经过团队的不懈努力，《青空之恋》正式版现已发布！感谢所有支持我们的玩家，希望这款游戏能给大家带来美好的体验。</p>
+            <a href="#" class="read-more">阅读更多</a>
+          </div>
+          
+          <div class="announcement-item">
+            <div class="announcement-date">2023年6月30日</div>
+            <h3 class="announcement-title">新角色"藤原美咲"公开！</h3>
+            <p>游戏中的第四位可攻略角色"藤原美咲"形象公开！她是学校的保健室老师，温柔体贴，深受学生喜爱。她的故事线将在正式版中解锁。</p>
+            <a href="#" class="read-more">阅读更多</a>
+          </div>
+          
+          <div class="announcement-item">
+            <div class="announcement-date">2023年6月15日</div>
+            <h3 class="announcement-title">游戏配音阵容公布</h3>
+            <p>我们很高兴地宣布，《青空之恋》将邀请多位知名声优为角色配音，为游戏增添更多魅力！详细配音阵容请查看完整公告。</p>
+            <a href="#" class="read-more">阅读更多</a>
+          </div>
+        </div>
+        
+        <div class="col-lg-4">
+          <div class="news-sidebar">
+            <h3 class="sidebar-title">即将到来</h3>
+            <ul class="upcoming-list">
+              <li>
+                <span class="upcoming-date">8月15日</span>
+                <span class="upcoming-title">夏日特典CG集</span>
+              </li>
+              <li>
+                <span class="upcoming-date">9月10日</span>
+                <span class="upcoming-title">手机版发布</span>
+              </li>
+              <li>
+                <span class="upcoming-date">10月1日</span>
+                <span class="upcoming-title">新故事线DLC</span>
+              </li>
+            </ul>
+            
+            <div class="newsletter">
+              <h3>订阅更新</h3>
+              <p>订阅我们的通讯，第一时间获取游戏更新信息！</p>
+              <form class="newsletter-form">
+                <div class="input-group mb-3">
+                  <input type="email" class="form-control" placeholder="您的邮箱地址" required>
+                  <button class="btn btn-primary" type="submit">订阅</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 最新动态评论区 -->
+      <div class="comment-section mt-5">
+        <h3 class="comment-title">评论区</h3>
+        
+        <!-- 发表评论 -->
+        <div class="post-comment">
+          <div class="user-avatar">
+            <img src="https://i.pravatar.cc/150" alt="用户头像">
+          </div>
+          <div class="comment-input-area">
+            <textarea id="comment-input-news" class="form-control" placeholder="写下你的评论..."></textarea>
+            <button class="btn btn-primary mt-2 post-comment-btn" data-post-id="news">发表评论</button>
+          </div>
+        </div>
+        
+        <!-- 评论列表 -->
+        <div id="news-comments" class="comment-list">
+          <!-- 评论将通过JS动态加载 -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 mb-4 mb-md-0">
+          <h5>关于我们</h5>
+          <p>青空工作室致力于打造高品质的视觉小说游戏，为玩家带来感人至深的故事体验。</p>
+          <div class="social-links">
+            <a href="#"><i class="bi bi-facebook"></i></a>
+            <a href="#"><i class="bi bi-twitter"></i></a>
+            <a href="#"><i class="bi bi-instagram"></i></a>
+            <a href="#"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4 mb-md-0">
+          <h5>快速链接</h5>
+          <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#game-intro">游戏介绍</a></li>
+            <li><a href="#characters">角色介绍</a></li>
+            <li><a href="#screenshots">游戏截图</a></li>
+            <li><a href="#news">最新消息</a></li>
+            <li><a href="admin.html" id="admin-link">管理员入口</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>联系我们</h5>
+          <ul>
+            <li><i class="bi bi-envelope"></i> contact@aozora-game.com</li>
+            <li><i class="bi bi-telephone"></i> +86 123 4567 8910</li>
+            <li><i class="bi bi-geo-alt"></i> 东京都新宿区新宿1-1-1</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2023 青空工作室 版权所有 | <a href="#">隐私政策</a> | <a href="#">使用条款</a></p>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- 返回顶部按钮 -->
+  <button id="back-to-top" class="back-to-top">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+  
+  <!-- 用户认证模态框 -->
+  <div class="modal fade" id="auth-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="auth-modal-title">用户登录</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- 错误提示 -->
+          <div class="alert alert-danger" id="auth-error" style="display: none;"></div>
+          
+          <!-- 成功提示 -->
+          <div class="alert alert-success" id="auth-message" style="display: none;"></div>
+          
+          <!-- 登录表单 -->
+          <div class="auth-form" id="login-form-container">
+            <form id="login-form">
+              <div class="mb-3">
+                <label for="login-username" class="form-label">用户名</label>
+                <input type="text" class="form-control" id="login-username" required>
+              </div>
+              <div class="mb-3">
+                <label for="login-password" class="form-label">密码</label>
+                <input type="password" class="form-control" id="login-password" required>
+              </div>
+              <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="remember-me">
+                <label class="form-check-label" for="remember-me">记住我</label>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary">登录</button>
+              </div>
+            </form>
+            <div class="mt-3 text-center">
+              <p>还没有账号？ <a href="#" class="switch-auth-form" data-form="register">立即注册</a></p>
+            </div>
+          </div>
+          
+          <!-- 注册表单 -->
+          <div class="auth-form" id="register-form-container" style="display: none;">
+            <form id="register-form">
+              <div class="mb-3">
+                <label for="register-username" class="form-label">用户名</label>
+                <input type="text" class="form-control" id="register-username" required>
+              </div>
+              <div class="mb-3">
+                <label for="register-password" class="form-label">密码</label>
+                <input type="password" class="form-control" id="register-password" required>
+              </div>
+              <div class="mb-3">
+                <label for="register-confirm-password" class="form-label">确认密码</label>
+                <input type="password" class="form-control" id="register-confirm-password" required>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary">注册</button>
+              </div>
+            </form>
+            <div class="mt-3 text-center">
+              <p>已有账号？ <a href="#" class="switch-auth-form" data-form="login">立即登录</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 管理员登录模态框 -->
+  <div class="modal fade" id="admin-login-modal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">管理员登录</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- 错误提示 -->
+          <div class="alert alert-danger" id="admin-login-error" style="display: none;"></div>
+          
+          <form id="admin-login-form">
+            <div class="mb-3">
+              <label for="admin-username" class="form-label">管理员账号</label>
+              <input type="text" class="form-control" id="admin-username" required>
+            </div>
+            <div class="mb-3">
+              <label for="admin-password" class="form-label">管理员密码</label>
+              <input type="password" class="form-control" id="admin-password" required>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary">登录管理系统</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Fancybox JS -->
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+  <!-- 自定义JS -->
+  <script src="js/auth.js"></script>
+  <script src="js/comments.js"></script>
+  <script src="js/likes.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
